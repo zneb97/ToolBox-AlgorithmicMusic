@@ -39,4 +39,20 @@ atexit.register(stop)  # stop all tracks when the program exits normally or is i
 blues_scale = [40, 43, 45, 46, 47, 50, 52, 55, 57, 58, 59, 62, 64, 67, 69, 70, 71, 74, 76]
 beats_per_minute = 45				# Let's make a slow blues solo
 
-play_note(blues_scale[0], beats=1, bpm=beats_per_minute)
+#Additional code
+curr_note = 0
+licks = [[(-10, 0.5), (10, 0.75), (10, 0.25), (-10, 0.5)],
+[(-8, 1.5), (8, 0.5), (8, 0.25), (8, 0.25), (-8, .70),(-8, .3), (8, .5)],
+[(-0, 0.5), (0, 0.5), (0, 0.75), (0, 0.25)]]
+
+
+for _ in range(8):
+    lick = random.choice(licks)
+    for note in lick:
+        curr_note += note[0]
+        #Constrain current note
+        if curr_note < 0:
+            curr_note = 0
+        elif curr_note > len(blues_scale) - 1:
+            curr_note = len(blues_scale) - 1
+        play_note(blues_scale[curr_note], note[1], beats_per_minute)
